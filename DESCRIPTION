@@ -1,15 +1,28 @@
 Package: otElo
-Title: What the Package Does (One Line, Title Case)
+Title: Elo rating system for the Euroleague
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Sergio",
+           family = "Olmos",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "s.olmos.pardo@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: What license it uses
+Description: Implementation of an Elo rating system for the Euroleague.
+Depends: R (>= 3.6.0)
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/solmos/otElo
 BugReports: https://github.com/solmos/otElo/issues
+Imports: 
+    rvest,
+    xml2,
+    stringr,
+    dplyr,
+    magrittr,
+    purrr,
+    tidyr,
+    tidyselect,
+    lubridate,
+    tibble
+RoxygenNote: 6.1.1
