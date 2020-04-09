@@ -40,5 +40,5 @@ getCarryOver <- function(rating, c) {
 #'
 #' @examples
 getMovMultiplier <- function(points_diff, elo_diff) {
-  ((points_diff + 3) ^ 0.8) / (7.5 + 0.006 * elo_diff)
+  ((abs(points_diff) + 3) ^ 0.8) / (7.5 + 0.006 * elo_diff)
 }

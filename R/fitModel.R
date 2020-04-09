@@ -81,7 +81,7 @@ getParTable <- function(fit) {
 #' @examples
 predictPointDiff <- function(fit, x) {
   pos_sample <- mvtnorm::rmvnorm(1, fit$par, sigma = fit$covariance) %>%
-    as_tibble()
+    tibble::as_tibble()
   mu <- pos_sample$alpha + pos_sample$beta * x
   pt_diff <- rnorm(1, mean = mu, sd = pos_sample$sigma)
 

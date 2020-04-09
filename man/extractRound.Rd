@@ -2,7 +2,7 @@
 % Please edit documentation in R/extractRound.R
 \name{extractRound}
 \alias{extractRound}
-\title{Scrape future games from a round}
+\title{Scrape future games from a round during the regular season}
 \usage{
 extractRound(round)
 }
@@ -10,5 +10,5 @@ extractRound(round)
 \item{round}{Scalar indicating the roound code}
 }
 \description{
-Scrape future games from a round
+Scrape future games from a round during the regular season
 }
