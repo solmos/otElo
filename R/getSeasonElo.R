@@ -91,8 +91,10 @@ getSeasonElo <- function(df, k, home_adv, s, initial_elo) {
 
   ratings_df <- ratings_df %>%
     dplyr::mutate(
-      diff_home = points_home - points_away,
-      diff_away = -diff_home,
+      pt_diff_home = points_home - points_away,
+      pt_diff_away = -pt_diff_home,
+      elo_diff_home = elo_prev_home + home_adv - elo_prev_away,
+      elo_diff_away = -elo_diff_home,
       winner = ifelse(points_home > points_away,
                       team_code_home, team_code_away),
       winner_pred = ifelse(elo_prev_home + home_adv >= elo_prev_away,
