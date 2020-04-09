@@ -1,4 +1,4 @@
-#' Scrape future games from a round
+#' Scrape future games from a round during the regular season
 #'
 #' @param round Scalar indicating the roound code
 #'
@@ -39,6 +39,7 @@ extractRound <- function(round) {
   games <- tibble::tibble(
     season = 2019,
     game_code = as.integer(game_codes),
+    phase = "RS",
     round_code = round,
     team_home = home_teams,
     team_away = away_teams
