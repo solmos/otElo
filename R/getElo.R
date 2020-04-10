@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-getElo <- function(df, k, home_adv, s, carry) {
+getElo <- function(df, k = 25, home_adv = 100, s = 400, carry = 0.8) {
   df <- dplyr::arrange(df, game_date)
   season_results <- split(df, df$season)
 

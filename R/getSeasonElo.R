@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-getSeasonElo <- function(df, k, home_adv, s, initial_elo) {
+getSeasonElo <- function(df, k = 25, home_adv = 100, s = 400, initial_elo) {
 
   team_ratings <- initial_elo
 
@@ -100,6 +100,12 @@ getSeasonElo <- function(df, k, home_adv, s, initial_elo) {
       winner_pred = ifelse(elo_prev_home + home_adv >= elo_prev_away,
                            team_code_home, team_code_away),
       correct_pred = ifelse(winner == winner_pred, TRUE, FALSE)
+    ) %>%
+    dplyr::select(
+      season, game_code, phase, round_code, game_date,
+      team_home, team_away, winner,
+      elo_diff_home, elo_diff_away,
+      dplyr::everything()
     )
 
   list(ratings_df = ratings_df, team_elo = team_ratings)
