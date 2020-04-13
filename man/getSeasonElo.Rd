@@ -4,7 +4,7 @@
 \alias{getSeasonElo}
 \title{Compute Elo ratings for a single season}
 \usage{
-getSeasonElo(df, k, home_adv, s, initial_elo)
+getSeasonElo(df, k = 25, home_adv = 100, s = 400, initial_elo)
 }
 \arguments{
 \item{df}{Data frame of results (as gmresults)}

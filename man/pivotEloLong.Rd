@@ -7,7 +7,8 @@
 pivotEloLong(df)
 }
 \arguments{
-\item{df}{Data frame of Elo ratings as returned by \code{getElo()}}
+\item{df}{Data frame of Elo ratings in wide format
+as returned by \code{getElo()}}
 }
 \description{
 Convert data frame of Elo ratings from wide to long

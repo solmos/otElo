@@ -7,7 +7,7 @@
 getTiedTeams(df)
 }
 \arguments{
-\item{df}{Data frame of Elo ratings in long format}
+\item{df}{Data frame of wins}
 }
 \description{
 Get teams with same number of wins

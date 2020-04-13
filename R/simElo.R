@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-simElo <- function(df,  k, home_adv, s, initial_elo) {
+simElo <- function(df, initial_elo, fit, k = 25, home_adv = 100, s = 400) {
   #browser()
   team_ratings <- initial_elo
 
@@ -24,6 +24,8 @@ simElo <- function(df,  k, home_adv, s, initial_elo) {
       expected_prob_away = NA,
       pt_diff_home = NA,
       pt_diff_away = NA,
+      elo_diff_home = NA,
+      elo_diff_away = NA,
       mov_home = NA,
       mov_away = NA,
       elo_prev_home = NA,
@@ -32,11 +34,6 @@ simElo <- function(df,  k, home_adv, s, initial_elo) {
       elo_new_away = NA,
       winner = NA
     )
-
-  # Point-spread model
-  pt_diff <- elohistwide$pt_diff_home
-  elo_diff <- elohistwide$elo_diff_home
-  pts_model <- fitModel(y = pt_diff, x = elo_diff)
 
   for (i in 1:nrow(df)) {
     team_home <- df$team_home[i]
@@ -59,7 +56,7 @@ simElo <- function(df,  k, home_adv, s, initial_elo) {
     # Margin of victory multiplier
     elo_diff_home <- elo_home + h - elo_away
     elo_diff_away <- elo_away - elo_home - h
-    points_diff_home <- predictPointDiff(pts_model, elo_diff_home)
+    points_diff_home <- predictPointDiff(fit, elo_diff_home)
 
     # MOV multiplier uses absolute value of point difference
     mov_home <- getMovMultiplier(points_diff_home, elo_diff_home)
@@ -94,6 +91,8 @@ simElo <- function(df,  k, home_adv, s, initial_elo) {
     ratings_df$mov_away[i] <- mov_away
     ratings_df$elo_prev_home[i] <- elo_home
     ratings_df$elo_prev_away[i] <- elo_away
+    ratings_df$elo_diff_home[i] <- elo_diff_home
+    ratings_df$elo_diff_away[i] <- elo_diff_away
     ratings_df$elo_new_home[i] <- elo_home_new
     ratings_df$elo_new_away[i] <- elo_away_new
     ratings_df$winner[i] <- winner
@@ -101,5 +100,15 @@ simElo <- function(df,  k, home_adv, s, initial_elo) {
     ratings_df$pt_diff_away[i] <- -points_diff_home
   }
 
-  ratings_df
+  ratings_df <- ratings_df %>%
+    dplyr::select(
+      season:team_away,
+      winner,
+      pt_diff_home, pt_diff_away,
+      elo_prev_home, elo_prev_away,
+      elo_new_home, elo_new_away,
+      dplyr::everything()
+    )
+
+  list(data = ratings_df, ratings = team_ratings)
 }

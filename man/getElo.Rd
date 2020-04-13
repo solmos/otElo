@@ -4,7 +4,7 @@
 \alias{getElo}
 \title{Get Elo ratings for several seasons}
 \usage{
-getElo(df, k, home_adv, s, carry)
+getElo(df, k = 25, home_adv = 100, s = 400, carry = 0.8)
 }
 \arguments{
 \item{carry}{}

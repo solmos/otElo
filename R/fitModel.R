@@ -18,15 +18,15 @@ fitModel <- function(y, x, init) {
   # Define log posterior that needs to be optimized (maximized)
   log_posterior <- function(p, y, x) {
     # Log riors
-    alpha <- dnorm(p["alpha"], 0, 1, log = TRUE)
-    beta <- dlnorm(p["beta"], -4, 0.8, log = TRUE)
-    sigma <- dunif(p["sigma"], 0, 50, log = TRUE)
+    alpha <- stats::dnorm(p["alpha"], 0, 1, log = TRUE)
+    beta <- stats::dlnorm(p["beta"], -4, 0.8, log = TRUE)
+    sigma <- stats::dunif(p["sigma"], 0, 50, log = TRUE)
     # Assuming independence
     joint_log_prior <- alpha + beta + sigma
 
     # Log likelihood
     mu <- p["alpha"] + p["beta"] * x
-    log_lik <- sum(dnorm(y, mu, p["sigma"], log = TRUE))
+    log_lik <- sum(stats::dnorm(y, mu, p["sigma"], log = TRUE))
 
     # Unnormalized joint log posterior distribution
     log_posterior <- log_lik + joint_log_prior
@@ -34,7 +34,7 @@ fitModel <- function(y, x, init) {
     unname(log_posterior)
   }
 
-  quad_approx <- optim(init, log_posterior,
+  quad_approx <- stats::optim(init, log_posterior,
                        control = list(fnscale = -1),
                        hessian = TRUE, y = y, x = x)
 
@@ -83,7 +83,7 @@ predictPointDiff <- function(fit, x) {
   pos_sample <- mvtnorm::rmvnorm(1, fit$par, sigma = fit$covariance) %>%
     tibble::as_tibble()
   mu <- pos_sample$alpha + pos_sample$beta * x
-  pt_diff <- rnorm(1, mean = mu, sd = pos_sample$sigma)
+  pt_diff <- stats::rnorm(1, mean = mu, sd = pos_sample$sigma)
 
   pt_diff
 }

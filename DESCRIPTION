@@ -24,5 +24,6 @@ Imports:
     tidyr,
     tidyselect,
     lubridate,
-    tibble
+    tibble,
+    stats
 RoxygenNote: 6.1.1

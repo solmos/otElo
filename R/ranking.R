@@ -67,3 +67,22 @@ getTiedTeams <- function(df) {
   teams_by_wins[idx]
 }
 
+rankTiedTeams <- function(teams, df) {
+
+  overall_pt_diff <- df %>%
+    dplyr::group_by(team) %>%
+    dplyr::summarise(diff = sum(pt_diff))
+
+  games <- df %>%
+    dplyr::filter(team %in% teams & team_opp %in% teams)
+
+  games %>%
+    dplyr::group_by(team) %>%
+    dplyr::summarise(
+      wins = sum(win_points),
+      pt_diff = sum(pt_diff)
+    ) %>%
+    dplyr::left_join(overall_pt_diff, by = "team") %>%
+    dplyr::arrange(wins, pt_diff) %>%
+    dplyr::mutate(rank_points = 1:length(teams) / 100)
+}

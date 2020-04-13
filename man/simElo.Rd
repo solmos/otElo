@@ -4,18 +4,18 @@
 \alias{simElo}
 \title{Simulate games using Elo ratings}
 \usage{
-simElo(df, k, home_adv, s, initial_elo)
+simElo(df, initial_elo, fit, k = 25, home_adv = 100, s = 400)
 }
 \arguments{
 \item{df}{Data frame with all the games (as in rschedule)}
+
+\item{initial_elo}{Named list with each element specifying a team Elo rating}
 
 \item{k}{Scalar indicating the k factor}
 
 \item{home_adv}{Scalar indicating home court advantage (in Elo points)}
 
 \item{s}{Scalar indicating the scale parameter}
-
-\item{initial_elo}{Named list with each element specifying a team Elo rating}
 }
 \description{
 Simulate games using Elo ratings
